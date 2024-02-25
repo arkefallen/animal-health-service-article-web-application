@@ -32,7 +32,7 @@
         <p class="mt-1 text-sm text-gray-700">{{ Session::get('success_store') }}</p>
       </div>
 
-      <button id="dismiss-btn" class="text-gray-500 transition hover:text-gray-600">
+      <button id="dismiss-btn" class="text-gray-500 transition hover:text-gray-600" onclick="closeButton()">
         <span class="sr-only">Dismiss popup</span>
 
         <svg
@@ -67,12 +67,12 @@
 <div class="pt-8 overflow-x-auto bg-white grid sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-4 xl:grid-cols-5 gap-6">
   @foreach ($articles as $article)
   <article
-    class="hover:animate-background rounded-xl bg-gradient-to-r from-green-300 via-blue-500 to-purple-600 p-0.5 shadow-xl transition hover:bg-[length:400%_400%] hover:shadow-sm hover:[animation-duration:_4s]"
+    class="hover:animate-background rounded-xl bg-gradient-to-r from-green-300 via-blue-500 to-purple-600 p-0.5 shadow-xl transition hover:bg-[length:400%_400%] hover:shadow-sm hover:[animation-duration:_4s] flex"
   >
-    <div class="rounded-[10px] bg-white p-4 sm:p-6">
-      <time datetime="2022-10-10" class="block text-xs text-gray-500">{{ $article->date }}</time>
+    <div class="rounded-[10px] bg-white p-4 sm:p-6 flex-1">
+      <time datetime="2022-10-10" class="block text-xs text-gray-500">{{ date('d F Y', strtotime($article->date)) }}</time>
 
-      <a href="#">
+      <a href="{{ route('article.detail', $article->id) }}">
         <h3 class="mt-0.5 text-lg font-medium text-gray-900">
           {{ $article->title }}
         </h3>
@@ -91,16 +91,14 @@
 
 </div>
 <script>
-    document.addEventListener("DOMContentLoaded", function() {
-        const dismissButton = document.getElementById('dismiss-btn');
-        const alertDiv = document.getElementById('alert');
+    function closeButton() {
+      const dismissButton = document.getElementById('dismiss-btn');
+      const alertDiv = document.getElementById('alert');
 
-        if (dismissButton && alertDiv) {
-            dismissButton.addEventListener('click', function() {
-                alertDiv.style.display = 'none';
-            });
-        }
-    });
+      dismissButton.addEventListener('click', function() {
+        alertDiv.style.display = 'none';
+      });
+    }
   </script>
 </body>
 @endsection

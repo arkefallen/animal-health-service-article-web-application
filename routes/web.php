@@ -19,3 +19,5 @@ Route::get('/', 'App\Http\Controllers\ArticleController@showAllArticle')->name('
 Route::get('/create','App\Http\Controllers\ArticleController@addNewArticle')->name('create');
 
 Route::post('/','App\Http\Controllers\ArticleController@store')->name('article.create');
+
+Route::get('/detail/{id}','App\Http\Controllers\ArticleController@showDetailArticle')->name('article.detail');

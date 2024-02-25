@@ -18,8 +18,10 @@ class ArticleController extends Controller
         return view('create');
     }
 
-    public function showDetailArticle() {
-        return view('detailArticle');
+    public function showDetailArticle($article_id) {
+        $article = Article::find($article_id);
+
+        return view('detail', compact('article'));
     }
 
     public function modifyArticle() {
