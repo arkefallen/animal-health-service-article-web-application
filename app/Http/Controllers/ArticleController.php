@@ -8,32 +8,26 @@ use Illuminate\Support\Facades\DB;
 
 class ArticleController extends Controller
 {
-    public function showAllArticle() {
+    public function index() {
         $articles = Article::all();
 
         return view('article', compact('articles'));
     }
 
-    public function addNewArticle() {
+    public function create() {
         return view('create');
     }
 
-    public function showDetailArticle($article_id) {
+    public function edit($article_id) {
         $article = Article::find($article_id);
 
-        return view('detail', compact('article'));
-    }
-
-    public function modifyArticle() {
-        return view('editArticle');
-    }
-
-    public function getAllArticle() {
-        return Article::all();
+        return view('edit', compact('article'));
     }
 
     public function show($id) {
-        return Article::find($id);
+        $article = Article::find($id);
+
+        return view('detail', compact('article'));
     }
 
     public function store(Request $request) {
@@ -72,9 +66,17 @@ class ArticleController extends Controller
         return response()->json($article, 200);
     }
 
-    public function delete(Article $article) {
-        $article->delete();
+    public function delete($article_id) {
+        DB::beginTransaction();
+        try {
+            Article::destroy($article_id);
+        } catch (\Throwable $th) {
+            DB::rollBack();
+            return redirect('/')->with('failed_delete',$th->getMessage());
+        }
 
-        return response()->json(null, 204);
+        DB::commit();
+    
+        return redirect('/')->with('success_delete','Artikel berhasil dihapus');
     }
 }

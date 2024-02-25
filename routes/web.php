@@ -14,10 +14,10 @@ use \App\Http\Controllers\ArticleController;
 |
 */
 
-Route::get('/', 'App\Http\Controllers\ArticleController@showAllArticle')->name('index');
-
-Route::get('/create','App\Http\Controllers\ArticleController@addNewArticle')->name('create');
-
-Route::post('/','App\Http\Controllers\ArticleController@store')->name('article.create');
-
-Route::get('/detail/{id}','App\Http\Controllers\ArticleController@showDetailArticle')->name('article.detail');
+Route::get('/', [ArticleController::class, 'index'])->name('index');
+Route::get('/create', [ArticleController::class, 'create'])->name('create');
+Route::post('/', [ArticleController::class, 'store'])->name('article.create');
+Route::get('/detail/{id}', [ArticleController::class, 'show'])->name('article.detail');
+Route::delete('/{id}', [ArticleController::class, 'delete'])->name('article.delete');
+Route::get('/edit/{id}', [ArticleController::class, 'edit'])->name('article.edit');
+Route::put('/edit/{id}', [ArticleController::class, 'update'])->name('article.update');
