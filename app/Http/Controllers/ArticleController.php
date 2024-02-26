@@ -60,10 +60,20 @@ class ArticleController extends Controller
         return redirect('/')->with('success_store','Artikel berhasil ditambahkan.');
     }
 
-    public function update(Request $request, Article $article) {
-        $article->update($request->all());
+    public function update(Request $request, $article_id) {
+        DB::beginTransaction();
+
+        try {
+            $article = Article::find($article_id);
+            $article->update($request->all());
+        } catch (\Throwable $th) {
+            DB::rollBack();
+            return redirect('article.edit')->with('failed_update',$th->getMessage());
+        }
+
+        DB::commit();
     
-        return response()->json($article, 200);
+        return redirect('/')->with('success_update','Artikel berhasil diperbarui');
     }
 
     public function delete($article_id) {

@@ -1,8 +1,7 @@
 <?php
 
-use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
-use App\Models\Article;
+use App\Http\Controllers\api\v1\ApiArticleController;
 
 /*
 |--------------------------------------------------------------------------
@@ -15,16 +14,4 @@ use App\Models\Article;
 |
 */
 
-Route::get('articles', 'ArticleController@index');
-
-Route::get('articles/{id}', 'ArticleController@show');
-
-Route::post('articles', 'ArticleController@store');
-
-Route::put('articles/{id}', 'ArticleController@update');
-
-Route::delete('articles/{id}', 'ArticleController@delete');
-
-
-
-
+Route::get('articles', [ApiArticleController::class, 'index']);
