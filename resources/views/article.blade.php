@@ -100,15 +100,18 @@
     </div>
   </div>
   @endif
-  
-
 
   <h1 class="text-4xl font-serif italic text-center pb-2 text-blue-950">Artikel Puskeswan</h1>
   <p class="text-center text-xl font-sans text-slate-400 pt-2 pb-6">Kumpulan artikel yang digunakan pada aplikasi Puskeswan untuk memberikan rekomendasi bacaan kepada pasien</p>
-  <div class="flex items-center">
-    <a class="mx-auto group inline-block rounded-full bg-gradient-to-r from-pink-500 via-red-500 to-yellow-500 p-[2px] hover:text-white focus:outline-none focus:ring active:text-opacity-75" href="{{ route('create') }}">
+  <div class="flex flex-row justify-center">
+    <a class="mr-4 group inline-block rounded-full bg-gradient-to-r from-pink-500 via-red-500 to-yellow-500 p-[2px] hover:text-white focus:outline-none focus:ring active:text-opacity-75" href="{{ route('create') }}">
       <span class="block rounded-full bg-white px-8 py-3 text-sm font-medium group-hover:bg-transparent">
         Tambah Artikel
+      </span>
+    </a>
+    <a class="mr-4 group inline-block rounded-full bg-gradient-to-r from-pink-500 via-red-500 to-yellow-500 p-[2px] hover:text-white focus:outline-none focus:ring active:text-opacity-75" href="{{ route('category.create') }}">
+      <span class="block rounded-full bg-white px-8 py-3 text-sm font-medium group-hover:bg-transparent">
+        Tambah Kategori
       </span>
     </a>
   </div>
@@ -152,14 +155,5 @@
     </article>
     @endforeach
   </div>
-
-  <script>
-    function closeButton(event) {
-      event.preventDefault();
-      const alertDiv = event.target.closest('.alert');
-      alertDiv.classList.add('invisible');
-    }
-  </script>
-  
 </body>
 @endsection
