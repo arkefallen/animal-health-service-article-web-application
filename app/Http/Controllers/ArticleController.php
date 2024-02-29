@@ -4,10 +4,16 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\Article;
+use App\Models\ArticleCategory;
 use Illuminate\Support\Facades\DB;
 
 class ArticleController extends Controller
 {
+    public function __construct()
+    {
+        $this->middleware('auth');
+    }
+
     public function index() {
         $articles = Article::all();
 
@@ -15,7 +21,9 @@ class ArticleController extends Controller
     }
 
     public function create() {
-        return view('create');
+        $categories = ArticleCategory::all();
+
+        return view('create', compact('categories'));
     }
 
     public function edit($article_id) {

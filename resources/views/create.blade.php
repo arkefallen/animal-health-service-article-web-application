@@ -67,17 +67,19 @@
 
           <div class="grid grid-cols-1 gap-4 sm:grid-cols-2">
             <div>
-              <label class="sr-only" for="email">Kategori</label>
-              <input
+              <label class="sr-only" for="category">Kategori</label>
+              <select
                 class="w-full rounded-lg border border-gray-200 p-3 text-sm"
-                placeholder="Kategori"
-                type="text"
-                name="category"
-              />
+                name="category">
+                <option selected>Pilih kategori hewan</option>
+                @foreach($categories as $category)
+                  <option value="{{ $category->category_name }}">{{ $category->category_name }}</option>
+                @endforeach
+              </select>
             </div>
 
             <div>
-              <label class="sr-only" for="phone">Tanggal Terbit</label>
+              <label class="sr-only" for="date">Tanggal Terbit</label>
               <input
                 class="w-full rounded-lg border border-gray-200 p-3 text-sm"
                 placeholder="Phone Number"
@@ -88,7 +90,7 @@
           </div>
           
           <div>
-            <label class="sr-only" for="name">Penulis</label>
+            <label class="sr-only" for="author">Penulis</label>
             <input
               class="w-full rounded-lg border border-gray-200 p-3 text-sm"
               placeholder="Penulis"
@@ -98,7 +100,7 @@
           </div>
 
           <div>
-            <label class="sr-only" for="message">Isi Artikel</label>
+            <label class="sr-only" for="content">Isi Artikel</label>
 
             <textarea
               class="w-full rounded-lg border border-gray-200 p-3 text-sm overflow-scroll resize-none"

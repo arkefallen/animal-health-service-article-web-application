@@ -104,7 +104,7 @@
   <h1 class="text-4xl font-serif italic text-center pb-2 text-blue-950">Artikel Puskeswan</h1>
   <p class="text-center text-xl font-sans text-slate-400 pt-2 pb-6">Kumpulan artikel yang digunakan pada aplikasi Puskeswan untuk memberikan rekomendasi bacaan kepada pasien</p>
   <div class="flex flex-row justify-center">
-    <a class="mr-4 group inline-block rounded-full bg-gradient-to-r from-pink-500 via-red-500 to-yellow-500 p-[2px] hover:text-white focus:outline-none focus:ring active:text-opacity-75" href="{{ route('create') }}">
+    <a class="mr-4 group inline-block rounded-full bg-gradient-to-r from-pink-500 via-red-500 to-yellow-500 p-[2px] hover:text-white focus:outline-none focus:ring active:text-opacity-75" href="{{ route('article.create') }}">
       <span class="block rounded-full bg-white px-8 py-3 text-sm font-medium group-hover:bg-transparent">
         Tambah Artikel
       </span>
@@ -114,6 +114,17 @@
         Tambah Kategori
       </span>
     </a>
+
+    <form action="{{ route('logout') }}" method="post">
+      @csrf
+      <button type="submit" onclick="return confirm('Anda yakin ingin keluar?')">
+        <a class="mr-4 group inline-block rounded-full bg-red-700 p-[2px] hover:text-white focus:outline-none focus:ring active:text-opacity-75">
+          <span class="block rounded-full bg-white px-8 py-3 text-sm font-medium group-hover:bg-transparent">
+            Logout
+          </span>
+        </a>
+      </button>
+    </form>
   </div>
 
   <div class="pt-8 overflow-x-auto bg-white grid sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-4 xl:grid-cols-5 gap-6">
@@ -155,5 +166,13 @@
     </article>
     @endforeach
   </div>
+  <script>
+    function closeButton(event) {
+      event.preventDefault();
+      const alertDiv = event.target.closest('.alert');
+      alertDiv.classList.add('invisible');
+      alertDiv.remove();
+    }
+  </script>
 </body>
 @endsection

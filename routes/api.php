@@ -15,3 +15,4 @@ use App\Http\Controllers\api\v1\ApiArticleController;
 */
 
 Route::get('articles', [ApiArticleController::class, 'index']);
+Route::get('articles/{id}', [ApiArticleController::class, 'show']);

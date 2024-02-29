@@ -132,6 +132,6 @@
     const alertDiv = event.target.closest('.alert');
     alertDiv.classList.add('invisible');
     alertDiv.remove();
-  }
+}
 </script>
 @endsection
