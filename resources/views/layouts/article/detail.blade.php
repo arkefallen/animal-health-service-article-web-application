@@ -23,7 +23,7 @@
                     <span class="mr-4 whitespace-nowrap rounded-full bg-purple-100 px-2.5 py-0.5 text-sm text-purple-700">{{ date('d F Y', strtotime($article->date)) }}</span>
                     <span class="whitespace-nowrap rounded-full bg-emerald-100 px-2.5 py-0.5 text-sm text-emerald-700">{{ $article->category }}</span>
                 </div>
-                <p class="py-4 text-2xl text-slate-800">{{ $article->content }}</p>
+                <p class="py-4 text-2xl text-slate-800">{!! html_entity_decode($article->content) !!}</p>
             </div>
         </div>
     </body>

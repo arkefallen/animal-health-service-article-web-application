@@ -18,7 +18,7 @@ class ArticleCategoryController extends Controller
     {
         $categories = ArticleCategory::all();
 
-        return view('category', compact('categories'));
+        return view('layouts/category', compact('categories'));
     }
 
     public function store(Request $request)

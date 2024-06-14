@@ -1,12 +1,12 @@
-@extends('master')
+@extends('layouts/master')
 
 @section('title')
-<title>Artikel Puskeswan</title>
+<title>Sandbox Puskeswan</title>
 @endsection
 
 @section('content')
 
-<body class="p-8">
+<body>
   @if(Session::has('success_store'))
   <div class="alert rounded-xl border border-gray-100 bg-white p-4 mb-4" role="alert">
     <div class="flex items-start gap-4">
@@ -101,71 +101,68 @@
   </div>
   @endif
 
-  <h1 class="text-4xl font-serif italic text-center pb-2 text-blue-950">Artikel Puskeswan</h1>
-  <p class="text-center text-xl font-sans text-slate-400 pt-2 pb-6">Kumpulan artikel yang digunakan pada aplikasi Puskeswan untuk memberikan rekomendasi bacaan kepada pasien</p>
-  <div class="flex flex-row justify-center">
-    <a class="mr-4 group inline-block rounded-full bg-gradient-to-r from-pink-500 via-red-500 to-yellow-500 p-[2px] hover:text-white focus:outline-none focus:ring active:text-opacity-75" href="{{ route('article.create') }}">
-      <span class="block rounded-full bg-white px-8 py-3 text-sm font-medium group-hover:bg-transparent">
-        Tambah Artikel
-      </span>
-    </a>
-    <a class="mr-4 group inline-block rounded-full bg-gradient-to-r from-pink-500 via-red-500 to-yellow-500 p-[2px] hover:text-white focus:outline-none focus:ring active:text-opacity-75" href="{{ route('category.create') }}">
-      <span class="block rounded-full bg-white px-8 py-3 text-sm font-medium group-hover:bg-transparent">
-        Tambah Kategori
-      </span>
-    </a>
+  <x-sidebar :user_email="$userEmail" />
 
-    <form action="{{ route('logout') }}" method="post">
-      @csrf
-      <button type="submit" onclick="return confirm('Anda yakin ingin keluar?')">
-        <a class="mr-4 group inline-block rounded-full bg-red-700 p-[2px] hover:text-white focus:outline-none focus:ring active:text-opacity-75">
-          <span class="block rounded-full bg-white px-8 py-3 text-sm font-medium group-hover:bg-transparent">
-            Logout
-          </span>
-        </a>
-      </button>
-    </form>
-  </div>
+  <div class="sm:ml-64 pt-16 px-8">
 
-  <div class="pt-8 overflow-x-auto bg-white grid sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-4 xl:grid-cols-5 gap-6">
-    @foreach ($articles as $article)
-    <article class="hover:animate-background rounded-xl bg-gradient-to-r from-green-300 via-blue-500 to-purple-600 p-0.5 shadow-xl transition hover:bg-[length:400%_400%] hover:shadow-sm hover:[animation-duration:_4s] flex">
-      <div class="rounded-[10px] bg-white p-4 sm:p-6 flex-1">
-        <time datetime="2022-10-10" class="block text-xs text-gray-500">{{ date('d F Y', strtotime($article->date)) }}</time>
-
-        <a href="{{ route('article.detail', $article->id) }}">
-          <h3 class="mt-0.5 text-lg font-medium text-gray-900 hover:text-blue-500">
-            {{ $article->title }}
+    <h1 class="pt-8 mb-4 text-2xl font-extrabold text-gray-900 dark:text-white md:text-4xl lg:text-5xl">Dashboard</h1>
+    <div class="grid grid-cols-1 gap-4 sm:grid-cols-2 md:grid-cols-3 md:gap-6 xl:grid-cols-4 2xl:gap-7.5 py-6 mx-">
+      <div class="max-w-sm p-6 bg-white border border-gray-200 rounded-lg shadow dark:bg-gray-800 dark:border-gray-700">
+        <!-- https://feathericons.dev/?search=file-text&iconset=feather -->
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" class="w-12 h-12 text-blue-500 dark:text-blue-400 mb-3 " fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2">
+          <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z" />
+          <polyline points="14 2 14 8 20 8" />
+          <line x1="16" x2="8" y1="13" y2="13" />
+          <line x1="16" x2="8" y1="17" y2="17" />
+          <polyline points="10 9 9 9 8 9" />
+        </svg>
+        <div class="flex flex-row w-full justify-between items-center">
+          <h3 class="mb-2 text-2xl font-semibold tracking-tight text-gray-400 dark:text-white">
+            Jumlah Artikel
           </h3>
-        </a>
-
-        <div class="mt-3 flex flex-wrap gap-1">
-          <span class="whitespace-nowrap rounded-full bg-purple-100 px-2.5 py-0.5 text-xs text-purple-600">
-            {{ $article->category }}
-          </span>
-        </div>
-
-        <div class="flex flex-row-reverse mt-3">
-          <form action="{{ route('article.delete', $article->id) }}" method="post">
-            @csrf
-            @method('DELETE')
-            <button type="submit" class="mx-2 inline-block rounded-full border border-red-600 p-1 text-red-600 hover:bg-red-600 hover:text-white focus:outline-none focus:ring active:bg-red-500" onclick="return confirm('Yakin ingin hapus artikel?')">
-              <svg class="text-red-600 fill-current hover:text-white" xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24">
-                <path d="M15 2H9c-1.103 0-2 .897-2 2v2H3v2h2v12c0 1.103.897 2 2 2h10c1.103 0 2-.897 2-2V8h2V6h-4V4c0-1.103-.897-2-2-2zM9 4h6v2H9V4zm8 16H7V8h10v12z"></path>
-              </svg>
-            </button>
-          </form>
-
-          <a class="mx-2 inline-block rounded-full border border-green-600 p-1 text-green-600 hover:bg-green-600 hover:text-white focus:outline-none focus:ring active:bg-green-500" href="{{ route('article.edit', $article->id) }}">
-            <svg class="text-green-600 fill-current hover:text-white" xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24">
-              <path d="m16 2.012 3 3L16.713 7.3l-3-3zM4 14v3h3l8.299-8.287-3-3zm0 6h16v2H4z"></path>
-            </svg>
-          </a>
+          <h3 class="mb-2 text-4xl font-semibold tracking-tight text-gray-900 dark:text-white">
+            {{ $articles }}
+          </h3>
         </div>
       </div>
-    </article>
-    @endforeach
+      <div class="max-w-sm p-6 bg-white border border-gray-200 rounded-lg shadow dark:bg-gray-800 dark:border-gray-700">
+        <!-- https://feathericons.dev/?search=star&iconset=feather -->
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="24" height="24" class="w-12 h-12 text-orange-500 dark:text-orange-400 mb-3" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2">
+          <polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2" />
+        </svg>
+
+        <div class="flex flex-row w-full justify-between items-center">
+          <h3 class="mb-2 text-2xl font-semibold tracking-tight text-gray-400 dark:text-white">
+            Jumlah Review
+          </h3>
+          <h3 class="mb-2 text-4xl font-semibold tracking-tight text-gray-900 dark:text-white">
+            {{ $reviews }}
+          </h3>
+        </div>
+      </div>
+      <div class="max-w-sm p-6 bg-white border border-gray-200 rounded-lg shadow dark:bg-gray-800 dark:border-gray-700">
+
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="24" height="24" class="w-12 h-12 text-purple-500 dark:text-purple-400 mb-3" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2">
+          <line x1="8" x2="21" y1="6" y2="6" />
+          <line x1="8" x2="21" y1="12" y2="12" />
+          <line x1="8" x2="21" y1="18" y2="18" />
+          <line x1="3" x2="3.01" y1="6" y2="6" />
+          <line x1="3" x2="3.01" y1="12" y2="12" />
+          <line x1="3" x2="3.01" y1="18" y2="18" />
+        </svg>
+
+        <div class="flex flex-row w-full justify-between items-center">
+          <h3 class="mb-2 text-2xl font-semibold tracking-tight text-gray-400 dark:text-white">
+            Kategori Artikel
+          </h3>
+          <h3 class="mb-2 text-4xl font-semibold tracking-tight text-gray-900 dark:text-white">
+            {{ $categories }}
+          </h3>
+        </div>
+      </div>
+    </div>
   </div>
+
   <script>
     function closeButton(event) {
       event.preventDefault();

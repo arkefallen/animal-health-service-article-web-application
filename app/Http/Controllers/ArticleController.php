@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Models\Article;
 use App\Models\ArticleCategory;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 
 class ArticleController extends Controller
@@ -16,26 +17,28 @@ class ArticleController extends Controller
 
     public function index() {
         $articles = Article::all();
+        $userEmail = Auth::user()->email;
 
-        return view('article', compact('articles'));
+        return view('layouts/article/article', compact('articles','userEmail'));
     }
 
     public function create() {
         $categories = ArticleCategory::all();
 
-        return view('create', compact('categories'));
+        return view('layouts/article/create', compact('categories'));
     }
 
     public function edit($article_id) {
         $article = Article::find($article_id);
+        $categories = ArticleCategory::all();
 
-        return view('edit', compact('article'));
+        return view('layouts/article/edit', compact('article', 'categories'));
     }
 
     public function show($id) {
         $article = Article::find($id);
 
-        return view('detail', compact('article'));
+        return view('layouts/article/detail', compact('article'));
     }
 
     public function store(Request $request) {
@@ -65,7 +68,7 @@ class ArticleController extends Controller
 
         DB::commit();
         
-        return redirect('/')->with('success_store','Artikel berhasil ditambahkan.');
+        return redirect('/article')->with('success_store','Artikel berhasil ditambahkan.');
     }
 
     public function update(Request $request, $article_id) {
@@ -81,7 +84,7 @@ class ArticleController extends Controller
 
         DB::commit();
     
-        return redirect('/')->with('success_update','Artikel berhasil diperbarui');
+        return redirect('/article')->with('success_update','Artikel berhasil diperbarui');
     }
 
     public function delete($article_id) {
@@ -90,11 +93,11 @@ class ArticleController extends Controller
             Article::destroy($article_id);
         } catch (\Throwable $th) {
             DB::rollBack();
-            return redirect('/')->with('failed_delete',$th->getMessage());
+            return redirect('/article')->with('failed_delete',$th->getMessage());
         }
 
         DB::commit();
     
-        return redirect('/')->with('success_delete','Artikel berhasil dihapus');
+        return redirect('/article')->with('success_delete','Artikel berhasil dihapus');
     }
 }

@@ -3,6 +3,7 @@
 use App\Http\Controllers\ArticleCategoryController;
 use App\Http\Controllers\ArticleController;
 use App\Http\Controllers\Auth\AuthenticatedSessionController;
+use App\Http\Controllers\DashboardController;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 
@@ -18,14 +19,16 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::middleware('auth')->group(function () {
+    Route::get('dashboard', [DashboardController::class, 'index'])->name('dashboard');
+    
     // Article
-    Route::get('/', [ArticleController::class, 'index'])->name('index');
-    Route::get('create', [ArticleController::class, 'create'])->name('article.create');
-    Route::post('create/{id}', [ArticleController::class, 'store'])->name('article.store');
-    Route::delete('{id}', [ArticleController::class, 'delete'])->name('article.delete');
-    Route::get('edit/{id}', [ArticleController::class, 'edit'])->name('article.edit');
-    Route::put('edit/{id}', [ArticleController::class, 'update'])->name('article.update');
-    Route::get('detail/{id}',[ArticleController::class, 'show'])->name('article.detail');
+    Route::get('article', [ArticleController::class, 'index'])->name('article');
+    Route::get('article/create', [ArticleController::class, 'create'])->name('article.create');
+    Route::post('article/create', [ArticleController::class, 'store'])->name('article.store');
+    Route::delete('article/{id}', [ArticleController::class, 'delete'])->name('article.delete');
+    Route::get('article/edit/{id}', [ArticleController::class, 'edit'])->name('article.edit');
+    Route::put('article/edit/{id}', [ArticleController::class, 'update'])->name('article.update');
+    Route::get('article/detail/{id}',[ArticleController::class, 'show'])->name('article.detail');
 
     // Article Category
     Route::get('category', [ArticleCategoryController::class, 'create'])->name('category.create');

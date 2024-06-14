@@ -1,7 +1,7 @@
 @extends('master')
 
 @section('title')
-<title>Tambah Kategori</title>
+<title>Tambah Kategori Artikel</title>
 @endsection
 
 @section('content')
@@ -87,8 +87,13 @@
           </div>
         </div>
         @endif
+        <a class="inline-block rounded-full border border-indigo-600 p-3 text-indigo-600 hover:bg-indigo-600 hover:text-white focus:outline-none focus:ring active:bg-indigo-500" href="{{ route('index') }}">
 
-        <h1 class="text-2xl font-bold">Daftar Kategori Artikel Saat Ini</h1>
+          <svg class="text-indigo-600 fill-current hover:text-white" xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24">
+            <path d="M21 11H6.414l5.293-5.293-1.414-1.414L2.586 12l7.707 7.707 1.414-1.414L6.414 13H21z"></path>
+          </svg>
+        </a>
+        <h1 class="text-2xl my-4 font-bold">Daftar Kategori Artikel Saat Ini</h1>
         <div class="flex flex-row my-4">
           @foreach($categories as $category)
           <span class="category-badge mr-4 inline-flex items-center justify-center rounded-full bg-purple-100 hover:bg-purple-500 px-2.5 py-0.5 text-purple-700 hover:text-white hover:cursor-pointer">

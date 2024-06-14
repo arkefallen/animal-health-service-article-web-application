@@ -2,6 +2,7 @@
 
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\api\v1\ApiArticleController;
+use App\Http\Controllers\api\v1\ApiFeedbackController;
 
 /*
 |--------------------------------------------------------------------------
@@ -16,3 +17,6 @@ use App\Http\Controllers\api\v1\ApiArticleController;
 
 Route::get('articles', [ApiArticleController::class, 'index']);
 Route::get('articles/{id}', [ApiArticleController::class, 'show']);
+
+Route::get('feedbacks', [ApiFeedbackController::class, 'index']);
+Route::post('feedbacks', [ApiFeedbackController::class, 'store']);
