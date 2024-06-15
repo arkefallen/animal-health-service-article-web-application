@@ -18,6 +18,10 @@ class Article extends Model
         'content',
         'author',
         'date',
-        'category'
+        'category_id'
     ];
+
+    public function category() {
+        return $this->belongsTo(ArticleCategory::class, 'category_id', 'id');
+    }
 }

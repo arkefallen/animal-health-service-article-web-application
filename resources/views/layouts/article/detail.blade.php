@@ -1,30 +1,42 @@
-@extends('master')
+@extends('layouts/master')
 
 @section('title')
-    <title>Detail Artikel</title>
+<title>Detail Artikel</title>
 @endsection
 
 @section('content')
-    <body>
-        <div class="flex justify-center pt-12">
-            <div class="basis-3/4">
-                <a
-                class="inline-block rounded-full border border-indigo-600 p-3 text-indigo-600 hover:bg-indigo-600 hover:text-white focus:outline-none focus:ring active:bg-indigo-500"
-                href="{{ route('index') }}"
-                >
 
-                <svg class="text-indigo-600 fill-current hover:text-white" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" ><path d="M21 11H6.414l5.293-5.293-1.414-1.414L2.586 12l7.707 7.707 1.414-1.414L6.414 13H21z"></path></svg>
-                </a>
-                <h1 class="text-5xl font-bold mt-4">
-                    {{ $article->title }} 
-                </h1>
-                <div class="flex items-center py-8">
-                    <p class="mr-4 text-xl text-slate-600">{{ $article->author }}</p>
-                    <span class="mr-4 whitespace-nowrap rounded-full bg-purple-100 px-2.5 py-0.5 text-sm text-purple-700">{{ date('d F Y', strtotime($article->date)) }}</span>
-                    <span class="whitespace-nowrap rounded-full bg-emerald-100 px-2.5 py-0.5 text-sm text-emerald-700">{{ $article->category }}</span>
+<body>
+    <section class="bg-white dark:bg-gray-900">
+        <div class="py-8 px-4 mx-auto max-w-2xl lg:py-16">
+            <a href="{{ route('article') }}">
+                <button class="w-full md:w-auto flex items-center justify-center py-2 px-4 text-sm font-medium text-gray-900 focus:outline-none bg-white rounded-lg border border-gray-200 hover:bg-gray-100 hover:text-primary-700 focus:z-10 focus:ring-4 focus:ring-gray-200 dark:focus:ring-gray-700 dark:bg-gray-800 dark:text-gray-400 dark:border-gray-600 dark:hover:text-white dark:hover:bg-gray-700" type="button">
+                    <svg class="-ml-1 mr-1.5 w-5 h-5" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" viewBox="0 0 24 24">
+                        <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 12h14M5 12l4-4m-4 4 4 4" />
+                    </svg>
+                    Kembali
+                </button>
+            </a>
+            <h2 class="py-4 mb-2 text-xl font-semibold leading-none text-gray-900 md:text-2xl dark:text-white">{{ $article->title }}</h2>
+            <dl class="flex items-center space-x-16">
+                <div>
+                    <dt class="mb-2 font-semibold leading-none text-gray-900 dark:text-white">Kategori</dt>
+                    <dd class="mb-4 font-light text-gray-500 sm:mb-5 dark:text-gray-400">{{ $article->category }}</dd>
                 </div>
-                <p class="py-4 text-2xl text-slate-800">{!! html_entity_decode($article->content) !!}</p>
-            </div>
+                <div>
+                    <dt class="mb-2 font-semibold leading-none text-gray-900 dark:text-white">Penulis</dt>
+                    <dd class="mb-4 font-light text-gray-500 sm:mb-5 dark:text-gray-400">{{ $article->author }}</dd>
+                </div>
+                <div>
+                    <dt class="mb-2 font-semibold leading-none text-gray-900 dark:text-white">Tanggal Terbit</dt>
+                    <dd class="mb-4 font-light text-gray-500 sm:mb-5 dark:text-gray-400">{{ date('d F Y', strtotime($article->date)) }}</dd>
+                </div>
+            </dl>
+            <dl>
+                <dt class="mb-2 font-semibold leading-none text-gray-900 dark:text-white">Isi Konten</dt>
+                <dd class="mb-4 font-light text-gray-500 sm:mb-5 dark:text-gray-400"><?php echo $article->content?></dd>
+            </dl>
         </div>
-    </body>
+    </section>
+</body>
 @endsection

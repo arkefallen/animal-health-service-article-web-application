@@ -101,7 +101,8 @@
   </div>
   @endif
 
-  <x-sidebar :user_email="$userEmail" />
+  <x-top-nav :user_email="$userEmail" />
+  <x-sidebar/>
 
   <div class="sm:ml-64 pt-16 px-8">
 

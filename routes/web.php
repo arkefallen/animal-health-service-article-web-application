@@ -31,7 +31,8 @@ Route::middleware('auth')->group(function () {
     Route::get('article/detail/{id}',[ArticleController::class, 'show'])->name('article.detail');
 
     // Article Category
-    Route::get('category', [ArticleCategoryController::class, 'create'])->name('category.create');
+    Route::get('category', [ArticleCategoryController::class, 'index'])->name('category');
+    Route::put('category/{id}', [ArticleCategoryController::class, 'update'])->name('category.update');
     Route::delete('category/{id}', [ArticleCategoryController::class, 'destroy'])->name('category.destroy');
     Route::post('category', [ArticleCategoryController::class, 'store'])->name('category.store');
 });

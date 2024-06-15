@@ -8,7 +8,8 @@
 
 <body>
 
-  <x-sidebar :user_email="$userEmail" />
+  <x-top-nav :user_email="$userEmail" />
+  <x-sidebar/>
 
   <div class="sm:ml-64 pt-16 px-8">
     @if(Session::has('success_store'))
@@ -133,11 +134,11 @@
             @foreach($articles as $article)
             <tr>
               <td class="whitespace-nowrap px-4 py-2 font-medium text-gray-900">{{$article->title}}</td>
-              <td class="whitespace-nowrap px-4 py-2 text-gray-700">{{$article->category}}</td>
+              <td class="whitespace-nowrap px-4 py-2 text-gray-700">{{$article->category->category_name}}</td>
               <td class="whitespace-nowrap px-4 py-2 text-gray-700">{{$article->author}}</td>
               <td class="whitespace-nowrap px-4 py-2 text-gray-700">{{ date('d F Y', strtotime($article->date)) }}</td>
               <td class="whitespace-nowrap px-4 py-2 text-gray-700f flex flex-row">
-                <a class="mx-2 inline-block rounded border border-indigo-600 bg-indigo-600 px-5 py-3 text-sm font-medium text-white hover:bg-transparent hover:text-indigo-600 focus:outline-none focus:ring active:text-indigo-500" href="#">
+                <a class="mx-2 inline-block rounded border border-indigo-600 bg-indigo-600 px-5 py-3 text-sm font-medium text-white hover:bg-transparent hover:text-indigo-600 focus:outline-none focus:ring active:text-indigo-500" href="{{ route('article.detail', $article->id)}}">
                   Lihat Detail
                 </a>
                 <a class="mx-2 inline-block rounded border border-green-600 bg-green-600 px-5 py-3 text-sm font-medium text-white hover:bg-transparent hover:text-green-600 focus:outline-none focus:ring active:text-green-500" href="{{ route('article.edit', $article->id) }}">
@@ -158,46 +159,6 @@
       </div>
     </div>
   </div>
-
-  <!-- <div class="pt-8 overflow-x-auto bg-white grid sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-4 xl:grid-cols-5 gap-6">
-    @foreach ($articles as $article)
-    <article class="hover:animate-background rounded-xl bg-gradient-to-r from-green-300 via-blue-500 to-purple-600 p-0.5 shadow-xl transition hover:bg-[length:400%_400%] hover:shadow-sm hover:[animation-duration:_4s] flex">
-      <div class="rounded-[10px] bg-white p-4 sm:p-6 flex-1">
-        <time datetime="2022-10-10" class="block text-xs text-gray-500">{{ date('d F Y', strtotime($article->date)) }}</time>
-
-        <a href="{{ route('article.detail', $article->id) }}">
-          <h3 class="mt-0.5 text-lg font-medium text-gray-900 hover:text-blue-500">
-            {{ $article->title }}
-          </h3>
-        </a>
-
-        <div class="mt-3 flex flex-wrap gap-1">
-          <span class="whitespace-nowrap rounded-full bg-purple-100 px-2.5 py-0.5 text-xs text-purple-600">
-            {{ $article->category }}
-          </span>
-        </div>
-
-        <div class="flex flex-row-reverse mt-3">
-          <form action="{{ route('article.delete', $article->id) }}" method="post">
-            @csrf
-            @method('DELETE')
-            <button type="submit" class="mx-2 inline-block rounded-full border border-red-600 p-1 text-red-600 hover:bg-red-600 hover:text-white focus:outline-none focus:ring active:bg-red-500" onclick="return confirm('Yakin ingin hapus artikel?')">
-              <svg class="text-red-600 fill-current hover:text-white" xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24">
-                <path d="M15 2H9c-1.103 0-2 .897-2 2v2H3v2h2v12c0 1.103.897 2 2 2h10c1.103 0 2-.897 2-2V8h2V6h-4V4c0-1.103-.897-2-2-2zM9 4h6v2H9V4zm8 16H7V8h10v12z"></path>
-              </svg>
-            </button>
-          </form>
-
-          <a class="mx-2 inline-block rounded-full border border-green-600 p-1 text-green-600 hover:bg-green-600 hover:text-white focus:outline-none focus:ring active:bg-green-500" href="{{ route('article.edit', $article->id) }}">
-            <svg class="text-green-600 fill-current hover:text-white" xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24">
-              <path d="m16 2.012 3 3L16.713 7.3l-3-3zM4 14v3h3l8.299-8.287-3-3zm0 6h16v2H4z"></path>
-            </svg>
-          </a>
-        </div>
-      </div>
-    </article>
-    @endforeach
-  </div> -->
   <script>
     function closeButton(event) {
       event.preventDefault();
