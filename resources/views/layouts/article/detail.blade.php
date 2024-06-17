@@ -17,11 +17,11 @@
                     Kembali
                 </button>
             </a>
-            <h2 class="py-4 mb-2 text-xl font-semibold leading-none text-gray-900 md:text-2xl dark:text-white">{{ $article->title }}</h2>
-            <dl class="flex items-center space-x-16">
+            <h2 class="py-4 my-2 text-3xl font-semibold leading-none text-gray-900 md:text-2xl dark:text-white">{{ $article->title }}</h2>
+            <dl class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 py-4">
                 <div>
                     <dt class="mb-2 font-semibold leading-none text-gray-900 dark:text-white">Kategori</dt>
-                    <dd class="mb-4 font-light text-gray-500 sm:mb-5 dark:text-gray-400">{{ $article->category }}</dd>
+                    <dd class="mb-4 font-light text-gray-500 sm:mb-5 dark:text-gray-400">{{ $article->category->category_name }}</dd>
                 </div>
                 <div>
                     <dt class="mb-2 font-semibold leading-none text-gray-900 dark:text-white">Penulis</dt>

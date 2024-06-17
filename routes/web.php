@@ -4,6 +4,7 @@ use App\Http\Controllers\ArticleCategoryController;
 use App\Http\Controllers\ArticleController;
 use App\Http\Controllers\Auth\AuthenticatedSessionController;
 use App\Http\Controllers\DashboardController;
+use App\Http\Controllers\ReviewController;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 
@@ -35,6 +36,13 @@ Route::middleware('auth')->group(function () {
     Route::put('category/{id}', [ArticleCategoryController::class, 'update'])->name('category.update');
     Route::delete('category/{id}', [ArticleCategoryController::class, 'destroy'])->name('category.destroy');
     Route::post('category', [ArticleCategoryController::class, 'store'])->name('category.store');
+
+    // Reviews
+    Route::get('reviews', [ReviewController::class, 'index'])->name('review');
+    Route::get('reviews/{id}', [ReviewController::class, 'show'])->name('review.detail');
+    Route::get('reviews/edit/{id}', [ReviewController::class, 'edit'])->name('review.edit');
+    Route::put('reviews/edit/{id}', [ReviewController::class, 'update'])->name('review.update');
+    Route::delete('reviews/{id}', [ReviewController::class, 'destroy'])->name('review.destroy');
 });
 
 require __DIR__.'/auth.php';

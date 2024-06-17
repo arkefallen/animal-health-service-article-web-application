@@ -6,7 +6,7 @@
 
 @section('content')
 
-<body class="bg-gray-100">
+<body>
   <section class="bg-white dark:bg-gray-900">
     <div class="py-8 px-4 mx-auto max-w-2xl lg:py-16">
       @if(Session::has('failed_update'))
@@ -61,14 +61,14 @@
           </div>
           <div class="sm:col-span-2">
             <label for="category" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Kategori Artikel</label>
-            <select id="category" name="category" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
-              <option>- Pilih Kategori-</option>
+            <select id="category" name="category_id" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
+              <option>- Pilih Kategori -</option>
               @foreach($categories as $category)
               <option 
-              @if($article->category == $category->category_name)
+              @if($article->category->category_name == $category->category_name)
               selected="selected"
               @endif
-              value="{{ $category->category_name }}">{{ $category->category_name }}</option>
+              value="{{ $category->id }}">{{ $category->category_name }}</option>
               @endforeach
             </select>
           </div>
@@ -86,16 +86,6 @@
   <script>
     ClassicEditor
       .create(document.querySelector('#content'))
-      .then(editor => {
-        console.log(editor);
-      })
-      .catch(error => {
-        console.error(error);
-      });
-  </script>
-  <script>
-    ClassicEditor
-      .create(document.querySelector('#editor'))
       .then(editor => {
         console.log(editor);
       })

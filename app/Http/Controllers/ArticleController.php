@@ -45,7 +45,7 @@ class ArticleController extends Controller
         $this->validate($request, [
             'title' => 'required|string',
             'content' => 'required',
-            'category' => 'required',
+            'category_id' => 'required',
             'date' => 'required',
             'author' => 'required|string'
         ]);
@@ -58,7 +58,7 @@ class ArticleController extends Controller
             $article->date = $request->date;
             $article->author = $request->author;
             $article->content = $request->content;
-            $article->category = $request->category;
+            $article->category_id = $request->category_id;
 
             $article->save();
         } catch (\Throwable $th) {

@@ -20,7 +20,7 @@ class RegisteredUserController extends Controller
      */
     public function create(): View
     {
-        return view('auth.register');
+        return view('/auth/register');
     }
 
     /**
@@ -47,12 +47,11 @@ class RegisteredUserController extends Controller
             $user->save();
         } catch (\Throwable $th) {
             DB::rollback();
-            return redirect('register')->with('failed_register', $th->getMessage());
+            return redirect('/register')->with('failed_register', $th->getMessage());
         }
 
-        Auth::login($user);
         DB::commit();
 
-        return redirect('login')->with('success_register', 'Berhasil daftar akun');
+        return redirect('login')->with('success_register', 'Berhasil daftar akun. Silakan login');
     }
 }

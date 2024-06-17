@@ -1,77 +1,64 @@
 <x-guest-layout>
-    <!-- Session Status -->
-    <x-auth-session-status class="mb-4" :status="session('status')" />
-    @if(Session::has('success_register'))
-    <div class="rounded-xl border border-gray-600 bg-gray-900 p-4 alert mb-4">
-        <div class="flex items-start gap-4">
-            <span class="text-green-600">
-                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="h-6 w-6">
-                    <path stroke-linecap="round" stroke-linejoin="round" d="M9 12.75L11.25 15 15 9.75M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
-                </svg>
-            </span>
+    <section class="bg-gray-50 dark:bg-gray-900">
+        <div class="flex flex-col items-center justify-center px-6 py-8 mx-auto md:h-screen lg:py-0">
+            <h1 class="flex items-center mb-6 text-2xl font-semibold text-gray-900 dark:text-white">
+                Web Admin Puskeswan
+            </h1>
+            <div class="w-full bg-white rounded-lg shadow dark:border md:mt-0 sm:max-w-md xl:p-0 dark:bg-gray-800 dark:border-gray-700">
+                <div class="p-6 space-y-4 md:space-y-6 sm:p-8">
+                    @if(Session::has('success_register'))
+                    <div class="rounded-xl border border-gray-600 bg-gray-50 dark:bg-gray-900 p-4 alert mb-4">
+                        <div class="flex items-start gap-4">
+                            <span class="text-green-600">
+                                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="h-6 w-6">
+                                    <path stroke-linecap="round" stroke-linejoin="round" d="M9 12.75L11.25 15 15 9.75M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+                                </svg>
+                            </span>
 
-            <div class="flex-1">
-                <strong class="block font-medium text-white">Proses berhasil</strong>
+                            <div class="flex-1">
+                                <strong class="block font-medium text-gray-900">Proses berhasil</strong>
 
-                <p class="mt-1 text-sm text-gray-700">{{ Session::get('success_register') }}</p>
+                                <p class="mt-1 text-sm text-gray-700">{{ Session::get('success_register') }}</p>
+                            </div>
+
+                            <button class="text-gray-200 transition hover:text-gray-300 dismiss-btn" onclick="closeButton(event)">
+                                <span class="sr-only">Dismiss popup</span>
+
+                                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="h-6 w-6">
+                                    <path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12" />
+                                </svg>
+                            </button>
+                        </div>
+                    </div>
+                    @endif
+                    <h1 class="text-xl font-bold leading-tight tracking-tight text-gray-900 md:text-2xl dark:text-white">
+                        Masuk Akun
+                    </h1>
+                    <form class="space-y-4 md:space-y-6" action="{{ route('login.store') }}" method="POST">
+                        @csrf
+                        <div>
+                            <label for="email" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Email</label>
+                            <input type="email" name="email" id="email" class="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="nama-admin@company.com" required="">
+                            <x-input-error :messages="$errors->get('email')" class="mt-2" />
+                        </div>
+                        <div>
+                            <label for="password" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Kata Sandi</label>
+                            <input type="password" name="password" id="password" placeholder="••••••••" class="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" required="">
+                            <x-input-error :messages="$errors->get('password')" class="mt-2" />
+                        </div>
+                        <div class="flex items-center justify-between">
+                            <a href="#" class="text-sm font-medium text-primary-600 hover:underline dark:text-primary-500">Lupa Password</a>
+                        </div>
+                        <button type="submit" class="w-full text-white bg-primary-600 hover:bg-primary-700 focus:ring-4 focus:outline-none focus:ring-primary-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-primary-600 dark:hover:bg-primary-700 dark:focus:ring-primary-800">Masuk</button>
+                        <p class="text-sm font-light text-gray-500 dark:text-gray-400">
+                            Belum punya akun? <a href="{{ route('register') }}" class="font-medium text-primary-600 hover:underline dark:text-primary-500">Daftar disini.</a>
+                        </p>
+                    </form>
+                </div>
             </div>
-
-            <button class="text-gray-200 transition hover:text-gray-300 dismiss-btn" onclick="closeButton(event)">
-                <span class="sr-only">Dismiss popup</span>
-
-                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="h-6 w-6">
-                    <path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12" />
-                </svg>
-            </button>
         </div>
-    </div>
-    @endif
+    </section>
 
-    <form method="POST" action="{{ route('login.store') }}">
-        @csrf
-
-        <!-- Email Address -->
-        <div>
-            <x-input-label for="email" :value="__('Email')" />
-            <x-text-input id="email" class="block mt-1 w-full text-white px-2 py-2" type="email" name="email" :value="old('email')" required autofocus autocomplete="username" />
-            <x-input-error :messages="$errors->get('email')" class="mt-2" />
-        </div>
-
-        <!-- Password -->
-        <div class="mt-4">
-            <x-input-label for="password" :value="__('Password')" />
-
-            <x-text-input id="password" class="block mt-1 w-full text-white px-2 py-2" type="password" name="password" required autocomplete="current-password" />
-
-            <x-input-error :messages="$errors->get('password')" class="mt-2" />
-        </div>
-
-        <!-- Remember Me -->
-        <div class="block mt-4">
-            <label for="remember_me" class="inline-flex items-center">
-                <input id="remember_me" type="checkbox" class="rounded dark:bg-gray-900 border-gray-300 dark:border-gray-700 text-indigo-600 shadow-sm focus:ring-indigo-500 dark:focus:ring-indigo-600 dark:focus:ring-offset-gray-800" name="remember">
-                <span class="ms-2 text-sm text-gray-600 dark:text-gray-400">{{ __('Ingat Saya') }}</span>
-            </label>
-        </div>
-
-        <div class="flex items-center justify-end mt-4">
-            @if (Route::has('password.request'))
-            <a class="mr-3 underline text-sm text-gray-600 dark:text-gray-400 hover:text-gray-900 dark:hover:text-gray-100 rounded-md focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 dark:focus:ring-offset-gray-800" href="{{ route('password.request') }}">
-                {{ __('Lupa Password?') }}
-            </a>
-            @endif
-
-            <a class="mr-4 inline-block rounded border border-white-600 px-4 py-3 text-sm font-medium text-white hover:bg-gray-700 focus:outline-none focus:ring active:border-white-400" href="{{ route('register') }}">
-                {{ __('Daftar')}}
-            </a>
-
-            <button type="submit">
-                <a class="inline-block rounded border border-white-600 bg-white px-4 py-3 text-sm font-medium text-gray-700 hover:bg-transparent hover:bg-slate-200 focus:outline-none focus:ring active:text-black">
-                    {{ __('Masuk')}}
-                </a>
-            </button>
-        </div>
-    </form>
     <script>
         function closeButton(event) {
             event.preventDefault();
@@ -80,4 +67,5 @@
             alertDiv.remove();
         }
     </script>
+
 </x-guest-layout>

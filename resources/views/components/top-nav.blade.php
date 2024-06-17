@@ -31,9 +31,16 @@
                 {{ $user_email }}
               </p>
             </div>
-            <ul class="py-1" role="none">
+            <ul class="py-1">
               <li>
-                <a href="#" class="block px-4 py-2 text-sm text-red-700 hover:bg-gray-100 dark:text-gray-300 dark:hover:bg-gray-600 dark:hover:text-white" role="menuitem">Keluar Akun</a>
+                <form action="{{ route('logout') }}" method="post">
+                  @csrf
+                  <button type="submit" onclick="return confirm('Anda yakin ingin keluar?')" class="w-full">
+                    <a class="w-full block px-4 py-2 text-sm text-red-700 hover:bg-gray-100 dark:text-gray-300 dark:hover:bg-gray-600 dark:hover:text-white">
+                      Keluar Akun
+                    </a>
+                  </button>
+                </form>
               </li>
             </ul>
           </div>
