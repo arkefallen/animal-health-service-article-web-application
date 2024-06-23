@@ -11,11 +11,16 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::table('feedback', function (Blueprint $table) {
-            $table->integer('checkup_id');
+        Schema::create('feedback', function (Blueprint $table) {
+            $table->id();
+            $table->string('username');
+            $table->text('comment');
+            $table->integer('score');
+            $table->unsignedBigInteger('checkup_id');
             $table->string('checkup_category');
-            $table->dropColumn('category');
             $table->string('feedback_category');
+            $table->string('animal_category');
+            $table->timestamps();
         });
     }
 
@@ -24,8 +29,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::table('feedback', function (Blueprint $table) {
-            //
-        });
+        Schema::dropIfExists('feedback');
     }
 };

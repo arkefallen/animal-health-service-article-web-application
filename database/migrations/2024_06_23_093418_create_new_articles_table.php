@@ -16,8 +16,9 @@ return new class extends Migration
             $table->string('title');
             $table->text('content');
             $table->string('author');
-            $table->string('date');
-            $table->string('imageUrl');
+            $table->date('date');
+            $table->unsignedBigInteger('category_id');
+            $table->foreign('category_id')->references('id')->on('article_category')->onDelete('cascade');
             $table->timestamps();
         });
     }

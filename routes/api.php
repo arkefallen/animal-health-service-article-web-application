@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\api\v1\ApiArticleCategoryController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\api\v1\ApiArticleController;
 use App\Http\Controllers\api\v1\ApiFeedbackController;
@@ -20,3 +21,5 @@ Route::get('articles/{id}', [ApiArticleController::class, 'show']);
 
 Route::get('feedbacks', [ApiFeedbackController::class, 'index']);
 Route::post('feedbacks', [ApiFeedbackController::class, 'store']);
+
+Route::get('article-cat', [ApiArticleCategoryController::class, 'index']);
