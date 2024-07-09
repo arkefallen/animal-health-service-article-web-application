@@ -7,7 +7,7 @@
 @section('content')
 
 <body>
-  <x-top-nav :user_email="$userEmail" />
+  <x-top-nav :user_email="$userEmail" :username="$userName" />
   <div id="addCategoryModal" tabindex="-1" aria-hidden="true" class="hidden overflow-y-auto overflow-x-hidden fixed top-0 right-0 left-0 z-50 justify-center items-center w-full md:inset-0 h-modal md:h-full">
     <div class="relative p-4 w-full max-w-2xl h-full md:h-auto">
       <!-- Modal content -->
@@ -47,109 +47,10 @@
   <x-sidebar />
 
   <div class="sm:ml-64 pt-16 px-8">
-    @if(Session::has('failed_store_category'))
-    <div role="alert" class="rounded-xl border border-gray-100 bg-white p-4">
-      <div class="flex items-start gap-4">
-        <span class="text-green-600">
-          <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="h-6 w-6">
-            <path stroke-linecap="round" stroke-linejoin="round" d="M9 12.75L11.25 15 15 9.75M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
-          </svg>
-        </span>
-
-        <div class="flex-1">
-          <strong class="block font-medium text-gray-900">Ada kesalahan</strong>
-
-          <p class="mt-1 text-sm text-gray-700">{{ Session::get('failed_store') }}</p>
-        </div>
-
-        <button class="text-gray-500 transition hover:text-gray-600">
-          <span class="sr-only">Dismiss popup</span>
-
-          <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="h-6 w-6">
-            <path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12" />
-          </svg>
-        </button>
-      </div>
-    </div>
-    @endif
-
-    @if(Session::has('success_create_category'))
-    <div class="rounded-xl border border-gray-100 bg-white p-4 alert mb-4" role="alert">
-      <div class="flex items-start gap-4">
-        <span class="text-green-600">
-          <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="h-6 w-6">
-            <path stroke-linecap="round" stroke-linejoin="round" d="M9 12.75L11.25 15 15 9.75M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
-          </svg>
-        </span>
-
-        <div class="flex-1">
-          <strong class="block font-medium text-gray-900">Tambah data berhasil</strong>
-
-          <p class="mt-1 text-sm text-gray-700">{{ Session::get('success_create_category') }}</p>
-        </div>
-
-        <button class="text-gray-500 transition hover:text-gray-600 dismiss-btn" onclick="closeButton(event)">
-          <span class="sr-only">Dismiss popup</span>
-
-          <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="h-6 w-6">
-            <path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12" />
-          </svg>
-        </button>
-      </div>
-    </div>
-    @endif
-
-    @if(Session::has('success_delete_category'))
-    <div class="rounded-xl border border-gray-100 bg-white p-4 alert mb-4" role="alert">
-      <div class="flex items-start gap-4">
-        <span class="text-green-600">
-          <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="h-6 w-6">
-            <path stroke-linecap="round" stroke-linejoin="round" d="M9 12.75L11.25 15 15 9.75M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
-          </svg>
-        </span>
-
-        <div class="flex-1">
-          <strong class="block font-medium text-gray-900">Hapus data berhasil</strong>
-
-          <p class="mt-1 text-sm text-gray-700">{{ Session::get('success_delete_category') }}</p>
-        </div>
-
-        <button class="text-gray-500 transition hover:text-gray-600 dismiss-btn" onclick="closeButton(event)">
-          <span class="sr-only">Dismiss popup</span>
-
-          <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="h-6 w-6">
-            <path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12" />
-          </svg>
-        </button>
-      </div>
-    </div>
-    @endif
-
-    @if(Session::has('success_update_category'))
-    <div class="rounded-xl border border-gray-100 bg-white p-4 alert mb-4" role="alert">
-      <div class="flex items-start gap-4">
-        <span class="text-green-600">
-          <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="h-6 w-6">
-            <path stroke-linecap="round" stroke-linejoin="round" d="M9 12.75L11.25 15 15 9.75M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
-          </svg>
-        </span>
-
-        <div class="flex-1">
-          <strong class="block font-medium text-gray-900">Update data berhasil</strong>
-
-          <p class="mt-1 text-sm text-gray-700">{{ Session::get('success_update_category') }}</p>
-        </div>
-
-        <button class="text-gray-500 transition hover:text-gray-600 dismiss-btn" onclick="closeButton(event)">
-          <span class="sr-only">Dismiss popup</span>
-
-          <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="h-6 w-6">
-            <path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12" />
-          </svg>
-        </button>
-      </div>
-    </div>
-    @endif
+    <x-success-popup-notification :session_status="Session::has('success_create_category')" session_title="Proses tambah berhasil" :session_message="Session::get('success_create_category')" />
+    <x-success-popup-notification :session_status="Session::has('success_delete_category')" session_title="Hapus data berhasil" :session_message="Session::get('success_delete_category')" />
+    <x-failed-popup-notification :session_status="Session::has('failed_store_category')" session_title="Gagal tambah data" :session_message="Session::get('failed_store_category')" />
+    <x-success-popup-notification :session_status="Session::has('success_update_category')" session_title="Ubah data berhasil" :session_message="Session::get('success_update_category')" />
 
     <h1 class="mt-4 mb-4 text-2xl font-extrabold text-gray-900 dark:text-white md:text-4xl lg:text-5xl">Daftar Kategori Artikel</h1>
     <div class="w-full md:w-auto flex flex-col md:flex-row space-y-2 md:space-y-0 items-stretch md:items-center justify-end md:space-x-3">

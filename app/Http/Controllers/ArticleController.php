@@ -18,8 +18,9 @@ class ArticleController extends Controller
     public function index() {
         $articles = Article::all();
         $userEmail = Auth::user()->email;
+        $userName = Auth::user()->name;
 
-        return view('layouts/article/article', compact('articles','userEmail'));
+        return view('layouts/article/article', compact('articles','userEmail', 'userName'));
     }
 
     public function create() {
@@ -50,8 +51,6 @@ class ArticleController extends Controller
             'author' => 'required|string'
         ]);
 
-        DB::beginTransaction();
-
         try {
             $article = new Article;
             $article->title = $request->title;
@@ -62,42 +61,30 @@ class ArticleController extends Controller
 
             $article->save();
         } catch (\Throwable $th) {
-            DB::rollBack();
             return redirect('/create')->with('failed_store',$th->getMessage());
         }
-
-        DB::commit();
         
         return redirect('/article')->with('success_store','Artikel berhasil ditambahkan.');
     }
 
     public function update(Request $request, $article_id) {
-        DB::beginTransaction();
-
         try {
             $article = Article::find($article_id);
             $article->update($request->all());
         } catch (\Throwable $th) {
-            DB::rollBack();
             return redirect('article.edit')->with('failed_update',$th->getMessage());
         }
-
-        DB::commit();
     
         return redirect('/article')->with('success_update','Artikel berhasil diperbarui');
     }
 
     public function delete($article_id) {
-        DB::beginTransaction();
         try {
             Article::destroy($article_id);
         } catch (\Throwable $th) {
-            DB::rollBack();
             return redirect('/article')->with('failed_delete',$th->getMessage());
         }
 
-        DB::commit();
-    
         return redirect('/article')->with('success_delete','Artikel berhasil dihapus');
     }
 }

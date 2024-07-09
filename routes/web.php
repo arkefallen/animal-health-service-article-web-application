@@ -43,6 +43,7 @@ Route::middleware('auth')->group(function () {
     Route::get('reviews/edit/{id}', [ReviewController::class, 'edit'])->name('review.edit');
     Route::put('reviews/edit/{id}', [ReviewController::class, 'update'])->name('review.update');
     Route::delete('reviews/{id}', [ReviewController::class, 'destroy'])->name('review.destroy');
+
 });
 
 require __DIR__.'/auth.php';

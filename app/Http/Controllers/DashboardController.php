@@ -19,8 +19,9 @@ class DashboardController extends Controller
         $reviews = Feedback::all()->count();
         $categories = ArticleCategory::all()->count();
         $userEmail = Auth::user()->email;
+        $userName = Auth::user()->name;
 
-        return view('layouts/dashboard', compact('articles','reviews','categories','userEmail'));
+        return view('layouts/dashboard', compact('articles','reviews','categories','userEmail', 'userName'));
     }
 
     /**

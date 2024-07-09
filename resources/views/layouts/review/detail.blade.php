@@ -31,24 +31,24 @@
                     </svg>
                     @endfor
             </div>
-            <dl class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 py-4">
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 py-4">
                 <div>
-                    <dt class="mb-2 font-semibold leading-none text-gray-900 dark:text-white">Jenis Pelayanan</dt>
-                    <dd class="mb-4 font-light text-gray-500 sm:mb-5 dark:text-gray-400">{{ $review->checkup_category }}</dd>
+                    <p class="mb-2 font-semibold leading-none text-gray-900 dark:text-white">Jenis Pelayanan</p>
+                    <p class="mb-4 font-light text-gray-500 sm:mb-5 dark:text-gray-400">{{ $review->checkup_category }}</p>
                 </div>
                 <div>
-                    <dt class="mb-2 font-semibold leading-none text-gray-900 dark:text-white">Kategori</dt>
-                    <dd class="mb-4 font-light text-gray-500 sm:mb-5 dark:text-gray-400">{{ $review->feedback_category }}</dd>
+                    <p class="mb-2 font-semibold leading-none text-gray-900 dark:text-white">Kategori</p>
+                    <p class="mb-4 font-light text-gray-500 sm:mb-5 dark:text-gray-400">{{ $review->feedback_category }}</p>
                 </div>
                 <div>
-                    <dt class="mb-2 font-semibold leading-none text-gray-900 dark:text-white">Jenis Hewan</dt>
-                    <dd class="mb-4 font-light text-gray-500 sm:mb-5 dark:text-gray-400">{{ $review->animal_category }}</dd>
+                    <p class="mb-2 font-semibold leading-none text-gray-900 dark:text-white">Jenis Hewan</p>
+                    <p class="mb-4 font-light text-gray-500 sm:mb-5 dark:text-gray-400">{{ $review->animal_category }}</p>
                 </div>
-            </dl>
-            <dl>
-                <dt class="mb-2 font-semibold leading-none text-gray-900 dark:text-white">Komentar</dt>
-                <dd class="mb-4 font-light text-gray-500 sm:mb-5 dark:text-gray-400">{{ $review->comment }}</dd>
-            </dl>
+            </div>
+            <div>
+                <p class="mb-2 font-semibold leading-none text-gray-900 dark:text-white">Komentar</p>
+                <p class="mb-4 font-light text-gray-500 sm:mb-5 dark:text-gray-400">{{ $review->comment }}</p>
+            </div>
         </div>
     </section>
 </body>

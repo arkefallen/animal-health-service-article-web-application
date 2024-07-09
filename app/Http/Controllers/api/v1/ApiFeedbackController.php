@@ -44,8 +44,6 @@ class ApiFeedbackController extends Controller
             'animal_category' => 'required|string'
         ]);
 
-        DB::beginTransaction();
-
         try {
             $feedback = new Feedback;
             $feedback->username = $request->username;
@@ -58,14 +56,11 @@ class ApiFeedbackController extends Controller
 
             $feedback->save();
         } catch (\Throwable $th) {
-            DB::rollback();
             return response()->json([
                 'message' => $th->getMessage(),
                 'status' => false
             ], $th->getCode());
         }
-
-        DB::commit();
         return new FeedbackPostResource($feedback);
     }
 

@@ -16,25 +16,30 @@ class ProfileController extends Controller
      */
     public function edit(Request $request): View
     {
-        return view('profile.edit', [
-            'user' => $request->user(),
-        ]);
+        $username = Auth::user()->name;
+        $usermail = Auth::user()->email;
+
+        return view('layouts/auth/update-profile', compact('username', 'usermail'));
     }
 
     /**
      * Update the user's profile information.
      */
-    public function update(ProfileUpdateRequest $request): RedirectResponse
+    public function update(ProfileUpdateRequest $request)
     {
-        $request->user()->fill($request->validated());
+        try {
+            $request->user()->fill($request->validated());
 
-        if ($request->user()->isDirty('email')) {
-            $request->user()->email_verified_at = null;
+            if ($request->user()->isDirty('email')) {
+                $request->user()->email_verified_at = null;
+            }
+
+            $request->user()->save();
+        } catch (\Throwable $th) {
+            return redirect('/profile/edit')->with('failed_update_profile', $th->getMessage());
         }
 
-        $request->user()->save();
-
-        return Redirect::route('profile.edit')->with('status', 'profile-updated');
+        return redirect('/dashboard')->with('success_update_profile', 'Profil berhasil diubah');
     }
 
     /**

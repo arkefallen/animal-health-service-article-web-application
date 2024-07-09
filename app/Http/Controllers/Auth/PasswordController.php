@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Auth;
 
 use App\Http\Controllers\Controller;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
@@ -10,9 +11,7 @@ use Illuminate\Validation\Rules\Password;
 
 class PasswordController extends Controller
 {
-    /**
-     * Update the user's password.
-     */
+
     public function update(Request $request): RedirectResponse
     {
         $validated = $request->validateWithBag('updatePassword', [
@@ -20,10 +19,17 @@ class PasswordController extends Controller
             'password' => ['required', Password::defaults(), 'confirmed'],
         ]);
 
-        $request->user()->update([
-            'password' => Hash::make($validated['password']),
-        ]);
+        try {
+            $request->user()->update([
+                'password' => Hash::make($validated['password']),
+            ]);
+        } catch (\Throwable $th) {
+            return redirect('/password')->with('failed_update_password', 'Gagal memperbarui password: '.$th->getMessage());
+        }
+        return redirect('/dashboard')->with('success_update_password', 'Berhasil memperbarui password!');
+    }
 
-        return back()->with('status', 'password-updated');
+    public function index() {
+        return view('layouts/auth/update-password');
     }
 }

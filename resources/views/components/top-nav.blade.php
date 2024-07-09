@@ -1,4 +1,4 @@
-@props(['user_email'])
+@props(['user_email', 'username'])
 
 <nav class="fixed top-0 z-50 w-full bg-white border-b border-gray-200 dark:bg-gray-800 dark:border-gray-700">
   <div class="px-3 py-3 lg:px-5 lg:pl-3">
@@ -12,7 +12,7 @@
         </button>
         <a href="{{ route('dashboard') }}" class="flex ms-2 md:me-24">
           <span class="self-center text-xl font-semibold sm:text-2xl whitespace-nowrap dark:text-white">Web Admin Puskeswan</span>
-        </a>
+        </a>  
       </div>
       <div class="flex items-center">
         <div class="flex items-center ms-3">
@@ -25,13 +25,27 @@
           <div class="z-50 hidden my-4 text-base list-none bg-white divide-y divide-gray-100 rounded shadow dark:bg-gray-700 dark:divide-gray-600" id="dropdown-user">
             <div class="px-4 py-3" role="none">
               <p class="text-sm text-gray-900 dark:text-white" role="none">
-                Admin
+                {{ $username }}
               </p>
               <p class="text-sm font-medium text-gray-900 truncate dark:text-gray-300" role="none">
                 {{ $user_email }}
               </p>
             </div>
             <ul class="py-1">
+            <li>
+                  <button class="w-full">
+                    <a class="w-full block px-4 py-2 text-sm text-blue-800 hover:bg-gray-100 dark:text-gray-300 dark:hover:bg-gray-600 dark:hover:text-white" href="{{ route('profile.edit') }}">
+                          Edit Profil
+                    </a>
+                  </button>
+              </li>
+            <li>
+                  <button class="w-full">
+                    <a class="w-full block px-4 py-2 text-sm text-blue-800 hover:bg-gray-100 dark:text-gray-300 dark:hover:bg-gray-600 dark:hover:text-white" href="{{ route('password.index') }}">
+                          Ubah Password
+                    </a>
+                  </button>
+              </li>
               <li>
                 <form action="{{ route('logout') }}" method="post">
                   @csrf

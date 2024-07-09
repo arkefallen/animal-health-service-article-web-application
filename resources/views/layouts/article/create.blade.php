@@ -17,6 +17,7 @@
           Kembali
         </button>
       </a>
+      <x-failed-popup-notification :session_status="Session::has('failed_store')" session_title="Gagal tambah data" :session_message="Session::get('failed_store')" />
       <h2 class="mt-8 mb-4 text-xl font-bold text-gray-900 dark:text-white">Tambah Artikel Baru</h2>
       <form action="{{ route('article.store') }}" method="post">
         @csrf
@@ -38,7 +39,7 @@
             <select id="category" name="category_id" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
               <option>- Pilih Kategori-</option>
               @foreach($categories as $category)
-                <option value="{{ $category->id }}">{{ $category->category_name }}</option>
+              <option value="{{ $category->id }}">{{ $category->category_name }}</option>
               @endforeach
             </select>
           </div>
