@@ -11,7 +11,14 @@ class ApiArticleCategoryController extends Controller
 {
     public function index()
     {
-        $articleCategories = ArticleCategory::all();
+        try {
+            $articleCategories = ArticleCategory::all();
+        } catch (\Throwable $th) {
+            return response()->json([
+                'message' => $th->getMessage(),
+                'status' => false
+            ], $th->getCode());
+        }
 
         return new ArticleCategoryCollectionResource($articleCategories);
     }

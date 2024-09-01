@@ -15,14 +15,28 @@ class ApiArticleController extends Controller
      */
     public function index()
     {
-        $articles = Article::all();
+        try {
+            $articles = Article::all();
+        } catch (\Throwable $th) {
+            return response()->json([
+                'message' => $th->getMessage(),
+                'status' => false
+            ], $th->getCode());
+        }
 
         return new ArticleCollectionResource($articles);
     }
 
     public function show($article_id)
     {
-        $article = Article::find($article_id);
+        try {
+            $article = Article::find($article_id);
+        } catch (\Throwable $th) {
+            return response()->json([
+                'message' => $th->getMessage(),
+                'status' => false
+            ], $th->getCode());
+        }
 
         return new ArticleResource($article);
     }

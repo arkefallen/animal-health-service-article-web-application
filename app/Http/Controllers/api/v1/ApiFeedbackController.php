@@ -29,21 +29,8 @@ class ApiFeedbackController extends Controller
         return new FeedbackCollectionResource($feedbacks);
     }
 
-    /**
-     * Store a newly created resource in storage.
-     */
     public function store(Request $request)
     {
-        $this->validate($request, [
-            'username' => 'required|string',
-            'comment' => 'required|string',
-            'score' => 'required',
-            'checkup_id' => 'required',
-            'checkup_category' => 'required|string',
-            'feedback_category' => 'required',
-            'animal_category' => 'required|string'
-        ]);
-
         try {
             $feedback = new Feedback;
             $feedback->username = $request->username;
@@ -64,5 +51,4 @@ class ApiFeedbackController extends Controller
         return new FeedbackPostResource($feedback);
     }
 
-    
 }

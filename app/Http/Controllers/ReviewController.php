@@ -54,9 +54,9 @@ class ReviewController extends Controller
         try {
             Feedback::destroy($review_id);
         } catch (\Throwable $th) {
-            return redirect('reviews')->with('failed_delete_review',$th->getMessage());
+            return redirect('/reviews')->with('failed_delete_review',$th->getMessage());
         }
     
-        return redirect('reviews')->with('success_delete_review','Review berhasil dihapus');
+        return redirect('/reviews')->with('success_delete_review','Review berhasil dihapus');
     }
 }

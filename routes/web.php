@@ -19,7 +19,15 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
+Route::middleware(['guest'])->group(function () {
+    Route::get('', [AuthenticatedSessionController::class, 'create']);
+    Route::get('login', [AuthenticatedSessionController::class, 'create']);
+    Route::post('login', [AuthenticatedSessionController::class, 'store'])
+    ->name('login.store');
+});
+
 Route::middleware('auth')->group(function () {
+    //Dashboard
     Route::get('dashboard', [DashboardController::class, 'index'])->name('dashboard');
     
     // Article
@@ -44,6 +52,9 @@ Route::middleware('auth')->group(function () {
     Route::put('reviews/edit/{id}', [ReviewController::class, 'update'])->name('review.update');
     Route::delete('reviews/{id}', [ReviewController::class, 'destroy'])->name('review.destroy');
 
+    // Logout
+    Route::post('logout', [AuthenticatedSessionController::class, 'destroy'])
+    ->name('logout');
 });
 
 require __DIR__.'/auth.php';

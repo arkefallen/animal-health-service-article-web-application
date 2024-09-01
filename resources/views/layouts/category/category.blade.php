@@ -1,7 +1,7 @@
 @extends('layouts/master')
 
 @section('title')
-<title>Tambah Kategori Artikel</title>
+<title>Kategori Artikel</title>
 @endsection
 
 @section('content')
